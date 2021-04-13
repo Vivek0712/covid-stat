@@ -1,4 +1,3 @@
-
 (function ($) {
     "use strict";
 
@@ -6,31 +5,63 @@
     /*==================================================================
     [ Validate ]*/
 
+    
+
 
 
     $('.contact1-form-btn').on('click',function(){
-        var email = $('#susemail').val();
         var check = true;
 
+        var email = $('#susemail');
         if($(email).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
             showValidate(email);
             check=false;
+        }
+        
+        if (check == true) {
+            $.ajax
+			({ 
+				url: 'https://covidmaillist.azurewebsites.net/api/HttpTrigger?action=subscribe&email='+$(email).val(),
+				type: 'get',
+				success: function(result)
+				{
+					$('#susmessage').text(result)
+				}
+			});
+
+        }
+
+
+
+        return check;
+    });
+
+    $('.contact2-form-btn').on('click',function(){
+        var check = true;
+
+        var email = $('#unsusemail');
+        if($(email).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+            showValidate(email);
+            check=false;
+        }
+        if (check == true) {
+            $.ajax
+			({ 
+				url: 'https://covidmaillist.azurewebsites.net/api/HttpTrigger?action=unsubscribe&email='+$(email).val(),
+				type: 'get',
+				success: function(result)
+				{
+					$('#unsusmessage').text(result)
+				}
+			});
+
         }
 
         return check;
     });
 
-    $('.contact2-form-btn').on('submit',function(){
-         var email = $('#unsusemail').val();
-        var check = true;
+    
 
-        if($(email).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-            showValidate(email);
-            check=false;
-        }
-
-        return check;
-    });
 
     $('.validate-form .input1').each(function(){
         $(this).focus(function(){
