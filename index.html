@@ -39,7 +39,7 @@
 		
 
 				<div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-					<input id="susemail" class="input1" type="text" name="email" placeholder="Email">
+					<input id="susemail" class="input1" type="email" name="email" placeholder="Email">
 					<span class="shadow-input1"></span>
 				</div>
 
@@ -55,6 +55,35 @@
 				</div>
 			</div>
 			<div id="susmessage"></div>
+		</div>
+	</div>
+
+	<div class="contact1">
+		<div class="container-contact1">
+			<div class="contact1-form validate-form">
+				<span class="contact1-form-title">
+					Unsubscribe from Mailing List
+				</span>
+
+		
+
+				<div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<input id="unsusemail" class="input1" type="email" name="email" placeholder="Email">
+					<span class="shadow-input1"></span>
+				</div>
+
+				
+
+				<div class="container-contact1-form-btn">
+					<button class="contact2-form-btn">
+						<span>
+							Subscribe
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</div>
+			<div id="unsusmessage"></div>
 		</div>
 	</div>
 
@@ -105,6 +134,24 @@
 				}
 			});
 		});
+		
+		$('.contact2-form-btn').click(function(){
+		
+			var email = $('#unsusemail').val();
+			console.log(email)
+		
+			$.ajax
+			({ 
+				url: 'https://covidmaillist.azurewebsites.net/api/HttpTrigger?action=unsubscribe&email='+email,
+				type: 'get',
+				success: function(result)
+				{
+					$('#unsusmessage').text(result)
+				}
+			});
+		});
+		
+		
 		</script>
 		
 </body>
