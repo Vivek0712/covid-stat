@@ -28,8 +28,10 @@
 					$('#susmessage').text(result)
 				}
 			});
+		$(email).val("");
 
         }
+	    
 
 
 
@@ -54,6 +56,7 @@
 					$('#unsusmessage').text(result)
 				}
 			});
+		$(email).val("");
 
         }
 
